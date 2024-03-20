@@ -41,12 +41,40 @@ class Usuario extends System
         return $stmt->fetch();
     }
 
+    public static function deleteUser($id, $estado)
+    {
+        $dbh  = parent::Conexion();
+        $stmt = $dbh->prepare("UPDATE usuarios SET estado = :estado WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':estado', $estado);
+        return  $stmt->execute();
+    }
+
     public static function listUser()
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("SELECT * FROM usuarios WHERE estado = 'activo'");
+        $stmt = $dbh->prepare("SELECT * FROM usuarios WHERE estado = 'activo' ORDER BY nombres ASC, apellidos ASC");
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'UsuarioDTO');
         $stmt->execute();
         return  $stmt->fetchAll();
+    }
+
+    public static function validateUser($correo){
+        $dbh  = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM usuarios WHERE correo = :correo");
+        $stmt->bindParam(':correo', $correo);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'UsuarioDTO');
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public static function validateUpdateUser($id, $correo){
+        $dbh  = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM usuarios WHERE correo = :correo AND id != :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':correo', $correo);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'UsuarioDTO');
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }

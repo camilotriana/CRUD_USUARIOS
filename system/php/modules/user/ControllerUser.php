@@ -16,9 +16,13 @@ if(isset($_GET['user'])){
     $user = ServiceUser::getUser($_GET['user']);
 }
 
+//Se recibe el id del usuario para eliminar el registro.
+if(isset($_POST['deleteUser'])){
+    $response = ServiceUser::deleteUser($_POST['idUser']);
+}
+
 //Se listan todos los usuarios.
 if(basename($_SERVER['PHP_SELF']) == 'index.php'){
     $tableUsers = ServiceUser::getTableUsers();
 }
-
 ?>
