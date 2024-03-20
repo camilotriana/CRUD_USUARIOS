@@ -7,7 +7,17 @@ class ServiceUser extends System
     public static function newUser($nombres, $apellidos, $telefono, $correo)
     {
         try {
-            $result = Usuario::newUser($nombres, $apellidos, $telefono, $correo, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), 'activo');
+
+            $validate = Usuario::validateUser($correo);
+
+            if (!$validate) {
+                $result = Usuario::newUser($nombres, $apellidos, $telefono, $correo, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), 'activo');
+                if ($result) {
+                    return Elements::crearMensaje(Constants::$USER_NEW, "success");
+                }
+            } else {
+                return Elements::crearMensaje(Constants::$USER_REPEATED, "error");
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -16,10 +26,17 @@ class ServiceUser extends System
     public static function setUser($id, $nombres, $apellidos, $telefono, $correo)
     {
         try {
-            $result = Usuario::setUser($id, $nombres, $apellidos, $telefono, $correo, date('Y-m-d H:i:s'));
 
-            if($result){
-                return Elements::crearMensaje(Constants::$USER_UPDATE, "success");
+            $validate = Usuario::validateUpdateUser($id, $correo);
+
+            if (!$validate) {
+                $result = Usuario::setUser($id, $nombres, $apellidos, $telefono, $correo, date('Y-m-d H:i:s'));
+
+                if ($result) {
+                    return Elements::crearMensaje(Constants::$USER_UPDATE, "success");
+                }
+            } else {
+                return Elements::crearMensaje(Constants::$USER_REPEATED, "error");
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -30,7 +47,26 @@ class ServiceUser extends System
     {
         try {
             $result = Usuario::getUser($id_usuario);
-            return $result;
+
+            if($result->getEstado() == "activo"){
+                return $result;
+            }else{
+                header('location:index');
+            }
+            
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function deleteUser($id_usuario)
+    {
+        try {
+            $result = Usuario::deleteUser($id_usuario, "inactivo");
+
+            if ($result) {
+                return Elements::crearMensaje(Constants::$USER_DELETE, "success");
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -44,18 +80,17 @@ class ServiceUser extends System
 
             if (!empty($listUser)) {
                 foreach ($listUser as $value) {
-                    $html .= '<tr>';
-                    $html .= '<td>' . $value->getId() . '</td>';
-                    $html .= '<td>' . $value->getNombres() . '</td>';
-                    $html .= '<td>' . $value->getApellidos() . '</td>';
-                    $html .= '<td>' . $value->getTelefono() . '</td>';
-                    $html .= '<td>' . $value->getCorreo() . '</td>';
-                    $html .= '<td>' . $value->getFecha_registro() . '</td>';
-                    $html .= '<td>' . $value->getFecha_modificacion() . '</td>';
-                    $html .= '<td class="text-center"><a href="editUser?user='.$value->getId().'" class="m-1"><i class="bi bi-pencil-square"></i></a> <a class="m-1" role="button"><i class="bi bi-trash"></i></a></td>';
-                    $html .= '</tr>';
+                    $html .= Elements::createTable(
+                        $value->getId(),
+                        $value->getNombres(),
+                        $value->getApellidos(),
+                        $value->getTelefono(),
+                        $value->getCorreo(),
+                        $value->getFecha_registro(),
+                        $value->getFecha_modificacion()
+                    );
                 }
-            }else{
+            } else {
                 $html = '<tr><td colspan="8" class="text-secondary">No existen usuarios registrados</td></tr>';
             }
             return $html;
