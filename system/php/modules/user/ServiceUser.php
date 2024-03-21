@@ -2,8 +2,11 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Usuario.php';
 
+//Esta clase maneja toda la logica del CRUD
 class ServiceUser extends System
 {
+
+    //Esta funcion permite crear un usuario validando que el correo ingresado no este registrado.
     public static function newUser($nombres, $apellidos, $telefono, $correo)
     {
         try {
@@ -23,6 +26,7 @@ class ServiceUser extends System
         }
     }
 
+    //Esta funcion permite modificar un usuario validando que el correo ingresado no exista para otro usuario.
     public static function setUser($id, $nombres, $apellidos, $telefono, $correo)
     {
         try {
@@ -43,22 +47,25 @@ class ServiceUser extends System
         }
     }
 
+    //Esta funcion obtiene un usuario por el id.
+    //y valida que no puedan acceder por url a usuarios inactivos.
     public static function getUser($id_usuario)
     {
         try {
             $result = Usuario::getUser($id_usuario);
 
-            if($result->getEstado() == "activo"){
+            if ($result && $result->getEstado() == "activo") {
                 return $result;
-            }else{
+            } else {
                 header('location:index');
             }
-            
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
+    //Esta funcion elimina un usuario.
+    //No se elimina de la base de datos, solo cambia un estado a inactivo.
     public static function deleteUser($id_usuario)
     {
         try {
@@ -72,6 +79,7 @@ class ServiceUser extends System
         }
     }
 
+    //Esta funcion obtiene la lista de todos los usuarios activos.
     public static function getTableUsers()
     {
         try {
@@ -90,9 +98,8 @@ class ServiceUser extends System
                         $value->getFecha_modificacion()
                     );
                 }
-            } else {
-                $html = '<tr><td colspan="8" class="text-secondary">No existen usuarios registrados</td></tr>';
             }
+
             return $html;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());

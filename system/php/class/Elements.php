@@ -1,4 +1,6 @@
 <?php
+
+//En esta clase se manejan las funciones que devuelven codigo html o scripts.
 class Elements{
     public static function crearMensaje($mensaje, $icon)
     {

@@ -1,4 +1,6 @@
 <?php
+
+//Esta clase se utiliza para manejar todas las constantes y alertas del sistema
 class Constants{
 
     // Configuracion bd

@@ -2,6 +2,8 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/app.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Elements.php';
 
+//Esta es la clase principal del sistema
+//Se configura la conexion con la base de datos
 abstract class System
 {
 
