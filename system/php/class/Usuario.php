@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/UsuarioDTO.php';
 
+//Esta clase es la encargada de realizar todas las respectivas consultas a la base de datos.
 class Usuario extends System
 {
     public static function newUser($nombres, $apellidos, $telefono, $correo, $fecha_registro, $fecha_modificacion, $estado)

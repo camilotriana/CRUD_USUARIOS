@@ -7,43 +7,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USUARIOS</title>
+    <link rel="icon" type="image/webp" href="/assets/img/icono.webp" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
 
     <link rel="stylesheet" href="/system/css/style.css">
 </head>
 
 <body>
+
+    <!-- ======= Header ======= -->
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/partials/header.php'; ?>
+    <!-- End Header -->
+
     <div class="container">
         <div class="row mt-5">
-            <div class="col-lg-9">
-                <h3>USUARIOS</h3>
+            <div class="col-lg-9 col-md-9 col-sm-8">
+                <h3 class="main-title">USUARIOS</h3>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-md-3 col-sm-4">
                 <a href="newUser" class="btn btn-primary w-100"><i class="bi bi-person-plus"></i> Nuevo Usuario</a>
+            </div>
+            <div class="col-lg-12">
+                <hr>
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col-lg-12">
-                <table class="table table-light table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Teléfono</th>
-                            <th>Correo</th>
-                            <th>Fecha registro</th>
-                            <th>Fecha modificación</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?= $tableUsers ?>
-                    </tbody>
-                </table>
-            </div>
+        <div class="table-responsive mt-5">
+            <table class="table table-light table-striped" width="100%" id="tableUser">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Fecha registro</th>
+                        <th>Fecha modificación</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?= $tableUsers ?>
+                </tbody>
+            </table>
         </div>
 
         <!-- Modal -->
@@ -83,13 +93,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
     <script src="/system/vendor/jquery/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="/system/js/dataTable.js"></script>
     <script src="/system/js/user.js"></script>
 
     <?= $response ?>
 
-    
+
 </body>
 
 </html>

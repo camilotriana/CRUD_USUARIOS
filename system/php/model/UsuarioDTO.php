@@ -1,4 +1,7 @@
 <?php
+
+//Esta clase se utiliza para manejar el modelo del Usuario
+//De esta manera se utiliza programacion orientada a objetos
 class UsuarioDTO
 {
     protected $id;
@@ -116,7 +119,7 @@ class UsuarioDTO
      */ 
     public function getFecha_registro()
     {
-        return $this->fecha_registro;
+        return date_format(date_create($this->fecha_registro), 'd/m/Y g:i A');
     }
 
     /**
@@ -136,7 +139,7 @@ class UsuarioDTO
      */ 
     public function getFecha_modificacion()
     {
-        return $this->fecha_modificacion;
+        return date_format(date_create($this->fecha_modificacion), 'd/m/Y g:i A');
     }
 
     /**

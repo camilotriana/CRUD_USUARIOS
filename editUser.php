@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EDITAR USUARIO</title>
+    <link rel="icon" type="image/webp" href="/assets/img/icono.webp" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -14,15 +16,18 @@
 </head>
 
 <body>
+    <!-- ======= Header ======= -->
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/partials/header.php'; ?>
+    <!-- End Header -->
+
     <div class="container">
         <div class="row mt-5">
-            <div class="col-lg-10">
-                <h3>EDITAR USUARIO</h3>
+            <div class="col-lg-10 col-md-9 col-sm-8">
+                <h3 class="main-title">EDITAR USUARIO</h3>
             </div>
-            <div class="col-lg-2 d-grid gap-2">
+            <div class="col-lg-2 col-md-3 col-sm-4 d-grid gap-2">
                 <a href="index" class="btn btn-secondary"><i class="bi bi-arrow-left-circle"></i> Atras</a>
             </div>
-
             <div class="col-lg-12">
                 <hr>
             </div>
